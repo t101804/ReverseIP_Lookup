@@ -10,6 +10,7 @@ python rev.py
 ## Instruction
 ```
 Input ur filename domains/ip list after that input CIDR 
+if your list already have cidr just input the cidr "auto"
 if you dont want using Range just Input CIDR "0" to not using The Range IP
 After that you input thread to adjust the speeds
 ```
