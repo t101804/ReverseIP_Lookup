@@ -1,6 +1,6 @@
 # ReverseIP_Lookup
 A Public Reverse IP Lookup (MultiThreaded + Auto Ranger) from IPAddress.com , Written in Python 3.
-<br>Author : @CallMeRep , Tested on **Windows 10, Termux F-Droid, Kali-linux wsl** with **Python 3.10 and 3.11**
+<br>Author : @CallMeRep , Tested on **Windows 10, Termux F-Droid, Kali-linux wsl** with **Python 3.10 or 3.11**
 <br> Download Python For Win 7+ : https://www.python.org/ftp/python/3.11.1/python-3.11.1-amd64.exe
 ### How To Run
 ```
