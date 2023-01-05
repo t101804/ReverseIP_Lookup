@@ -1,0 +1,11 @@
+cpanel.
+autodiscover.
+webmail.
+webdisk.
+ftp.
+cpcalendars.
+cpcontacts.
+mail.
+ns1.
+ns2.
+hosting.
