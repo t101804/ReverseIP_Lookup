@@ -9,6 +9,7 @@ python rev.py
 ```
 ## Instruction
 ```
+If you want exclude spesific subdomains you can add the subdomains in the banned_subdomains.txt
 Input ur filename domains/ip list after that input CIDR 
 if your list already have cidr just input the cidr "auto"
 if you dont want using Range just Input CIDR "0" to not using The Range IP
