@@ -7,6 +7,7 @@
 #1.1.1.1
 #1.1.1.1/16
 #https://google.com/asumemek/kontolgoreng
+#if you want add banned subdomains just input the subdomain. in banned_subdomains.txt
 #if your list already have cidr just input the cidr "auto"
 #if you dont want using cidr/range ip just input "0"
 
@@ -79,16 +80,17 @@ class RevIP:
         print(f"ip : {ips} result: {len(selector)}")
         for results in selector:
           results = results.replace("\n", "").replace("\r", "")
-          if validators.domain(results):
-            parser = results
-          if parser not in self.result:
-            self.result.append(parser)
-            open( "reversed.txt", "a" ).write( results + "\n" )
+          banSubdo = open('banned_subdomains.txt', 'r').read().splitlines()
+          site = re.sub(r'[^A-Za-z0-9.\\-]','', results)
+          for ban in banSubdo:site = site.replace(ban, "")
+          if site not in self.result:
+              self.result.append(site)
+              open( "reversed.txt", "a" ).write( site + "\n" )
         return self.result
           
       else:
         print(f"ip : {ips} BAD-IPS [No-Results]")
-  
+
     except Exception as e:
       
       print(e)
