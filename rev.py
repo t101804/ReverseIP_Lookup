@@ -2,9 +2,11 @@
 #@CallMeRep
 #Reverse IP With CIDR Ranger Support Type of list like
 #google.com
+#google.com/16
 #https://google.com
 #1.1.1.1
 #1.1.1.1/16
+#https://google.com/asumemek/kontolgoreng
 #if your list already have cidr just input the cidr "auto"
 #if you dont want using cidr/range ip just input "0"
 
