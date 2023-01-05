@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 #@CallMeRep
-#Simple Reverse IP Cidr
+#Reverse IP With CIDR Ranger Support Type of list like
+#google.com
+#https://google.com
+#1.1.1.1
+#1.1.1.1/16
+#if your list already have cidr just input the cidr "auto"
+#if you dont want using cidr/range ip just input "0"
 
 from threading import *
 from threading import Thread
@@ -38,19 +44,25 @@ class ThreadPool:
       self.tasks.join()
 
 class RevIP:
-  def __init__(self, iplist, cidr):
+  def __init__(self, iplist):
     self.result = []
     self.ip = iplist
-    self.cidr = cidr
+    self.cidr = input("cidr : ")
     self.thread = input("thread : ")
 
   def domainToIP(self):
     if self.ip.startswith( "http" ) or self.ip.startswith( "https" ): 
         self.ip = urlparse(self.ip).netloc
-    if self.ip.endswith('/'):
-        self.ip = self.ip[:-1]
-    self.ip = socket.gethostbyname( self.ip )
 
+    if "/" in self.ip:
+      if self.ip.endswith("/"): self.ip = self.ip[:-1]
+      cidrf = re.findall("/(.*)", self.ip)
+      if cidrf: self.cidr = cidrf[0]
+      ipf = re.findall("(.*)/", self.ip)
+      if ipf : self.ip = ipf[0]
+
+    self.ip = socket.gethostbyname( self.ip )
+    
   def rev(self,ips):
     head = {
         'Origin': 'https://www.ipaddress.com',
@@ -76,11 +88,13 @@ class RevIP:
         print(f"ip : {ips} BAD-IPS [No-Results]")
   
     except Exception as e:
+      
       print(e)
       pass
 
   def ranger(self, cidr):
     pool = ThreadPool(int(self.thread))
+    print(f"( ip : {self.ip} cidr : {cidr} )")
     for ip in IPNetwork(f"{self.ip}/{cidr}"):
       pool.add_task( self.rev, ip )
     print(f"list: {self.ip}/{cidr} total result: {len(self.result)}")
@@ -91,7 +105,7 @@ class RevIP:
     for url in self.ip:
       self.ip = url
       self.domainToIP()
-      if self.cidr > 0:
+      if self.cidr != "0" or self.cidr == "auto":
         self.ranger(self.cidr)
       else:
         pool2.add_task( self.rev, self.ip )
@@ -112,8 +126,7 @@ if __name__ == '__main__':
     Credits : @CallMeRep
     """)
     list = open(input("list : "), encoding="utf8" ).read().splitlines()
-    cidr = int(input("cidr : "))
-    RevIP(list, cidr).execute()
+    RevIP(list).execute()
   except Exception as f:
     print(f)
     pass
