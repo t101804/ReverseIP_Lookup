@@ -54,15 +54,18 @@ class RevIP:
     self.thread = input("thread : ")
 
   def domainToIP(self):
-    if self.ip.startswith( "http" ) or self.ip.startswith( "https" ): 
-        self.ip = urlparse(self.ip).netloc
+    try:
+      if self.ip.startswith( "http" ) or self.ip.startswith( "https" ): 
+          self.ip = urlparse(self.ip).netloc
 
-    if "/" in self.ip:
-      if self.ip.endswith("/"): self.ip = self.ip[:-1]
-      cidrf = re.findall("/(.*)", self.ip)
-      if cidrf: self.cidr = cidrf[0]
-      ipf = re.findall("(.*)/", self.ip)
-      if ipf : self.ip = ipf[0]
+      if "/" in self.ip:
+        if self.ip.endswith("/"): self.ip = self.ip[:-1]
+        cidrf = re.findall("/(.*)", self.ip)
+        if cidrf: self.cidr = cidrf[0]
+        ipf = re.findall("(.*)/", self.ip)
+        if ipf : self.ip = ipf[0]
+    except:
+      pass
 
     self.ip = socket.gethostbyname( self.ip )
     
