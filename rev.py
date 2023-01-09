@@ -57,17 +57,17 @@ class RevIP:
     try:
       if self.ip.startswith( "http" ) or self.ip.startswith( "https" ): 
           self.ip = urlparse(self.ip).netloc
-
       if "/" in self.ip:
         if self.ip.endswith("/"): self.ip = self.ip[:-1]
         cidrf = re.findall("/(.*)", self.ip)
         if cidrf: self.cidr = cidrf[0]
         ipf = re.findall("(.*)/", self.ip)
         if ipf : self.ip = ipf[0]
+      self.ip = socket.gethostbyname( self.ip )
     except:
       pass
 
-    self.ip = socket.gethostbyname( self.ip )
+    
     
   def rev(self,ips):
     head = {
